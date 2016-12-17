@@ -44,7 +44,7 @@ function fn2(val) {
 
 var cbs = Callbacks('once');
 cbs.add(fn1);
-cbs.fire('foo');
+cbs.fire('foo');//fn1 says:foo
 cbs.fire('foo');
 
 

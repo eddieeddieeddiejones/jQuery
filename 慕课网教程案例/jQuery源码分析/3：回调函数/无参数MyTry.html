@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<script src="http://img.mukewang.com/down/541f6ff70001a0a500000000.js" type="text/javascript"></script>
+
+<title></title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+
+function Callbacks(){
+  var list=[]
+  var funList = {
+    add: function(fn){
+      list.push(fn)
+    },
+    fire: function(arg){
+      list.forEach(function(fn){
+        fn(arg)
+      })
+    }
+  }
+  return funList
+}
+
+var fn1 = function(info){
+  console.log('qiao say '+ info)
+}
+var fn2 = function(info){
+  console.log('jinyan say '+ info)
+}
+
+
+var cbs = Callbacks();
+cbs.add(fn1);
+cbs.fire('bom');
+[fn1,fn2]
+cbs.add(fn2);
+cbs.fire('papa')
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -14,61 +14,67 @@
 
 
 
-var aQuery = function (){
-	this.name = 'query'
-}
-
-aQuery.prototype = {
-	say: function(){
-		return this.name
-	}
-}
-
-var a = new aQuery()
-console.log(a)
-
-// var $$ = ajQuery = function(selector) {
-// 	return new ajQuery.fn.init(selector);
+// var aQuery = function (){
+// 	this.name = 'query'
 // }
 
-// ajQuery.fn = ajQuery.prototype = {
+// aQuery.prototype = {
+// 	say: function(){
+// 		return this.name
+// 	}
+// }
+
+// var a = new aQuery()
+// console.log(a)
+
+
+
+
+
+
+
+// var $$ = ajQuery = function(selector){
+// 	return new ajQuey.fn.init(selector)
+// }
+
+// ajQuery.fn = ajQuery.prototype={
 // 	name: 'aaron',
-// 	init: function(selector) {
-// 		this.selector = selector;
-// 		return this;
-// 	},
+// 	init: function(selector){
+// 		this.selector = selector
+// 		return this
+// 	}
 // 	constructor: ajQuery
 // }
 
 // ajQuery.fn.init.prototype = ajQuery.fn
-
-// console.log(
-// 	$$('aaa')
-// )
+// console.log($$('aaa'))
 
 
 
 
-// var $$ = ajQuery = function(selector) {
-// 	if(!(this instanceof ajQuery)){
-// 		return new ajQuery(selector);
-// 	}
-// 	this.selector = selector;
-// 	return this
-// }
-
-// ajQuery.fn = ajQuery.prototype = {
-// 	selectorName:function(){
-// 		return this.selector;
-// 	},
-// 	constructor: ajQuery
-// }
-
-// var a = $$('aaa'); 
-
-// console.log(a)
 
 
+
+
+var $$ = ajQuery = function(selector){
+	//console.log(this) 第一次调用this是window对象
+	if(!(this instanceof ajQuery)){
+		return new ajQuery(selector)
+	}
+	this.selector = selector
+}
+
+ajQuery.fn = ajQuery.prototype = {
+	constructor: ajQuery,
+	selectName: function(){
+		return this.selector
+	}
+}
+
+var a = $$('aaa'); 
+
+console.log(a)
+console.log(a.selectName())//aaa
 
 
 

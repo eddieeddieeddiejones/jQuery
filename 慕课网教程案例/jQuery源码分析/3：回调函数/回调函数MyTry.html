@@ -14,43 +14,40 @@
 </div>
 
 
-<img id="book" alt="" width="100" height="123"
-  style="position: relative; left: 10px;background:#ccc" />
+<img id="book" height="100" width="100" style="position:relative; left:10; background-color: blue " />
 
 <div id="clickme">
   点击动画等待动画结束后回调
 </div>
-
+<script src="../jquery-2.1.1.js"></script>
 <script type="text/javascript">
 
+// 同步回调
+// callback(2, function(value) {
+//   alert(value)
+// })
 
-//同步回调
-function callback(args, fn) {
-  var args = args * 2;
-  fn(args);
-}
+// function callback(arg,fn){
+//   arg = arg*2
+//   fn(arg)
+// }
 
-callback(2, function(value) {
-  alert(value)
-})
-
-
-//异步事件回调
-$("#target").click(function() {
-  alert("触发回调函数");
+$("#target").click(function(event) {
+  alert('触发事件回调函数')
 });
 
-//异步动画回调
-$('#clickme').click(function() {
-  $('#book').animate({
-    opacity: 0.25,
-    left: '+=50',
+$("#clickme").click(function(event) {
+  $("#book").animate({
+    'left': '+=50',
+    'background-color': 'red',
     // 高度0-100间切换
-    height: 'toggle'
-  }, 1000, function() {
-    alert('动画结束回调')
-  });
+    'height': 'toggle'
+  }, 1000,function(){
+      alert('动画回调函数执行结束')
+  })
 });
+
+
 
 </script>
 </body>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+    <script src="http://img.mukewang.com/down/541f6ff70001a0a500000000.js" type="text/javascript"></script>
+    <title></title>
+</head>
+
+<body>
+    <script type="text/javascript">
+    function Callbacks(option) {
+
+        var fun = {
+            list: [],
+            add: function(fn) {
+                this.list.push(fn)
+            },
+            fire: function(str) {
+                this.list.forEach(function(item) {
+                    item(str)
+                })
+                if (option === "once") {
+                    this.list = []
+                }
+            }
+        }
+        return fun
+    }
+
+    function fn1(data) {
+        show('fn1 say ' + data)
+    }
+
+    function show(child) {
+        if (!child) {
+            $('body').append('<br/>')
+        } else
+        if (typeof child === "object") {
+          for (var i in child) {
+              $('body').append('<li>key=>' + i + '---value=>' + child[i] + '</li>')
+          }
+        } else{
+          $('body').append('<li>'+child+'</li>')
+        }
+    }
+    // console.log(typeof({}))//object
+    console.log(typeof [])//object
+    var cbs = Callbacks('once');
+    cbs.add(fn1);
+    cbs.fire('foo'); //fn1 says:foo
+    cbs.fire('foo');
+    </script>
+</body>
+
+</html>

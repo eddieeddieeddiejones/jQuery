@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!-- // <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script> -->
+	<script type="text/javascript" src="jquery-2.1.1.js"></script>
+	<title>回调函数</title>
+</head>
+<body>
+
+<ul>
+    <li>list item 1</li>
+    <li>list item 2</li>
+    <li>list item 3</li>
+    <li>list item 4</li>
+    <li>list item 5</li>
+  </ul>
+  <p>a paragraph</p>
+
+<script type="text/javascript">
+
+var callbacks = Callbacks("stopOnFalse");
+callbacks.add(fn1);
+callbacks.fire("foo");
+
+callbacks.add(fn2);
+callbacks.fire("bar");
+
+function fn1(value){
+  console.log(value)
+  return false
+}
+
+function fn2(value){
+  fn1('fn2 says' + value)
+}
+
+// var a = 1===2 && 3
+// console.log(a)//false
+
+function Callbacks(options){
+  var list = []
+  var self;
+  var firingStart;
+  var memory;
+
+  function _fire(data){
+    //options === 'memory'==> memory = data
+    //options !== 'memory'==> memory = false
+    memory = options === 'memory' && data
+    firingIndex = 
+      firingStart || 0
+    firingStart = 0
+    firingLength = list.length
+    for(;list && firingIndex < firingLength;firingIndex++){
+      if(list[firingIndex](data)=== false && options === 'stopOnFalse'){
+        break
+      }
+    }
+  }
+
+  self = {
+    add: function(fn){
+      var start = list.length
+      // console.log(options)//stopOnFalse
+      if(options == 'unique'){
+        //避免重复添加
+        if(-1 === list.indexOf(fn)){
+          list.push(fn)
+        }
+      //这不是相当于没有判断？？？？？？？？？？？？？？？？？？？？？？？？？
+      }else{
+        list.push(fn)
+      }
+      // console.log(memory)//undefined false
+      if(memory){
+        firingStart = start
+        _fire(memory)
+      }
+    },
+    fire: function(args){
+      if(list){
+        _fire(args)
+      }
+    }
+  }
+  return self
+}
+
+
+
+
+</script>
+</body>
+</html>

@@ -26,7 +26,8 @@ var object2 = {
 $.extend(object1, object2); //结果object1 = ｛banana: {price: 200}｝
 console.log(object1)
 $.extend(true,object1, object2); //结果object1 = ｛banana: {price: 200,weight: 52}｝
-
+//？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+console.log(object1)//banana: {price: 200}｝
 // 根据这个结果就能清楚的看到jQuery是为了判断克隆是不是一个深层次的对象，用来逐个clone
 
 
@@ -46,8 +47,12 @@ var object2 = {
 
 $.extend(true,object1, object2);
 
+//Object {apple: 1, banana: Object, cherry: 97, durian: 100}
+console.log(object1)
 
-console.log(object1,object2)
+//Object {banana: Object, durian: 100, apple: 1}
+console.log(object2)
+
 
 </script>
 </body>

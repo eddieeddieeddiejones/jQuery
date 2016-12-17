@@ -18,32 +18,26 @@
   <p>a paragraph</p>
 
 <script type="text/javascript">
-	
-	var li =  $('li')
 
-
-	console.log(  li.add('p') )
-
-	$('li').eq(2).css('background-color', 'red');
-
-function each(obj, callback, context, arg) {
-	var i = 0;
-	var value;
-	var length = obj.length;
-	for (; i < length; i++) {
-		//或许callback回调函数执行后会return false
-		value = callback.call(context || null, obj[i], arg);
-		if (value === false) {
-			break;
-		}
-	}
-}
 
 var arr = ['a', 'b', 'c'];
 
 each(arr, function(name, arg) {
 	console.log(name, arg);
 }, this, 'aaa')
+
+function each(obj,fun,context,arg){
+	var length = obj.length
+	var value
+	for (var i = 0; i < length; i++) {
+		value = fun.call(context || null, obj[i],arg)
+		if(value === false){
+			break
+		}
+	};
+}
+
+
 
 </script>
 </body>

@@ -30,20 +30,26 @@ ajQuery.fn = ajQuery.prototype = {
 
 ajQuery.extend = ajQuery.fn.extend = function() {
 	var options, name, src, copy, copyIsArray, clone,
-		target = arguments[0] || {},
+
+		target = arguments[0] || {},//对象
 		i = 1,
-		length = arguments.length,
+		//形参个数
+		length = arguments.length,//1
 		deep = false;
 
-	if ( typeof target === "boolean" ) {
+	if ( typeof target === "boolean" ) {//false
 		deep = target;
 		target = arguments[ i ] || {};
 		i++;
 	}
 
 	if (i === length) {
-		target = this;
-		i--;
+		target = this;//
+
+		console.log('-----------')
+		//？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+		console.log(this)//function(selector)
+		i--;//0
 	}
 
 
@@ -53,9 +59,13 @@ ajQuery.extend = ajQuery.fn.extend = function() {
 
 		}
 	}
-	return target;
+	console.log(target)
+	return target;//function(selector)
 };
-
+//test
+console.log(ajQuery);//function
+console.log(ajQuery.extend);//function
+console.log(ajQuery.fn);//Object
 
 
 
@@ -69,7 +79,8 @@ ajQuery.extend({
 
 var a = $$('aaa');
 
-console.log(a)
+console.log(a)//init{}
+
 
 
 // var $$ = ajQuery = function(selector) {
@@ -89,7 +100,7 @@ console.log(a)
 
 // var a = $$('aaa'); 
 
-// console.log(a)
+// console.log(a)//init{}
 
 
 

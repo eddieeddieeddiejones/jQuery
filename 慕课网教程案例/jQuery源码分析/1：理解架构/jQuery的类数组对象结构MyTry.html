@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script> -->
+<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+<style type="text/css">
+	div{
+		width: 30px;
+		height: 10px;
+		float:left;
+	}
+</style>
+<title>无标题文档</title>
+
+
+<button id="test1">jQuey[0]</button>
+<button id="test2">jQuey.get</button>
+<button id="test3">aQuery[0]</button>
+<button id="test4">aQuery.get</button>
+
+<p id="book">book</p>
+
+<div id="show1"></div>
+<div id="show2"></div>
+<div id="show3"></div>
+<div id="show4"></div>
+
+<script type="text/javascript">
+
+var aQuery = function (selector){
+	//如果不是对象，先创建对象
+	if(!(this instanceof aQuery)){
+		return new aQuery(selector)
+	}
+	// console.log("abb".substr(1))
+	// console.log(selector.substr(1))
+	// var ele = document.getElementById(selector.substr(1))
+	// console.log(/[^#].*/.exec(selector))//["book", index: 1, input: "#book"]
+	var ele = document.getElementById(/[^#].*/.exec(selector)[0]);
+	this[0] = ele
+	this.length = 1
+	this.context = document
+	this.get = function(num){
+		return this[num]
+	}
+}
+
+
+
+$("#test4").click(function() {
+	$('#show4').append(aQuery("#book").get(0))
+	console.log(aQuery("#book"))
+})
+
+
+</script>
+</head>
+
+<body>
+</body>
+</html>

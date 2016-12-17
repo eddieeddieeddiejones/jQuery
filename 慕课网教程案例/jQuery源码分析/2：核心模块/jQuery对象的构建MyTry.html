@@ -12,36 +12,39 @@
 
 <script type="text/javascript">
 
-// function ajQuery() {
-// 	this.name = 'jQuery'
-// }
-// ajQuery.prototype = {
-// 	sayName: function() {
-// 		return this.name
-// 	}
-// }
 
-// var a = new ajQuery()
-// console.log(a)
 
-var $$ = ajQuery = function(selector) {
-	return new ajQuery.fn.init(selector);
+var aQuery = function (){
+	this.name = 'query'
 }
 
-ajQuery.fn = ajQuery.prototype = {
-	name: 'aaron',
-	init: function(selector) {
-		this.selector = selector;
-		return this;
-	},
-	constructor: ajQuery
+aQuery.prototype = {
+	say: function(){
+		return this.name
+	}
 }
 
-ajQuery.fn.init.prototype = ajQuery.fn
+var a = new aQuery()
+console.log(a)
 
-console.log(
-	$$('aaa')
-)
+// var $$ = ajQuery = function(selector) {
+// 	return new ajQuery.fn.init(selector);
+// }
+
+// ajQuery.fn = ajQuery.prototype = {
+// 	name: 'aaron',
+// 	init: function(selector) {
+// 		this.selector = selector;
+// 		return this;
+// 	},
+// 	constructor: ajQuery
+// }
+
+// ajQuery.fn.init.prototype = ajQuery.fn
+
+// console.log(
+// 	$$('aaa')
+// )
 
 
 

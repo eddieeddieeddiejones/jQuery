@@ -11,9 +11,31 @@
 
 <script type="text/javascript">
 
+function Data(){
+	Object.definePrototype(this.cache={},0,{
+		get: function(){
+			return {}
+		}
+	})
+	this.expando = jQuery.expando + Math.random()
+}
 
-	
+Data.uid= 1
+Data.accepts = jQuery.acceptData
 
+Data.prototype ={
+	key: function(){},
+	set: function(){},
+	get: function(){},
+	remove: function(){},
+	hasData: function(){},
+	access: function(){},
+}
+
+var data_privn = new Data()
+var data_user= new Data()
+
+show(data_user)
 
 </script>
 </body>

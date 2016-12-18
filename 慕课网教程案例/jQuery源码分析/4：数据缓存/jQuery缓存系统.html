@@ -20,10 +20,11 @@ span { color:red; }
 <script>
 $("button").click(function(e) {
   var value, div = $("div")[0];
- 
-  switch ($("button").index(this)) {
+  // console.log(this)
+  switch ($("button").index(this)) {//搜寻具体点击的是哪个元素,返回键
     case 0 :
       value = jQuery.data(div, "blah");
+      
       break;
     case 1 :
       jQuery.data(div, "blah", "hello");

@@ -45,13 +45,13 @@ var taskNuns = function() {
 $("#aaron1").click(function() {
   //常规处理
   task1('任务一', function() {
-    show('task1', $("#aaron1"))
-    taskNuns()
+    show('task1', $("#aaron1"))//task1
+    // taskNuns()
   })
 
   task2('任务二', function() {
-    show('task2', $("#aaron1"))
-    taskNuns();
+    // show('task2', $("#aaron1"))
+    // taskNuns();
   })
 })
 
@@ -62,29 +62,29 @@ $("#aaron1").click(function() {
 
 //案例二
 //通过Deferred改进
-function task3(name) {
-  var dtd = $.Deferred();
-  setTimeout(function() {
-    show('task3执行完毕',$("#aaron2"))
-    dtd.resolve(name)
-  }, 500)
-  return dtd;
-}
+// function task3(name) {
+//   var dtd = $.Deferred();
+//   setTimeout(function() {
+//     show('task3执行完毕',$("#aaron2"))
+//     dtd.resolve(name)
+//   }, 500)
+//   return dtd;
+// }
 
-function task4(name) {
-  var dtd = $.Deferred();
-  setTimeout(function() {
-    show('task4执行完毕',$("#aaron2"))
-    dtd.resolve(name)
-  }, 1000)
-  return dtd;
-}
+// function task4(name) {
+//   var dtd = $.Deferred();
+//   setTimeout(function() {
+//     show('task4执行完毕',$("#aaron2"))
+//     dtd.resolve(name)
+//   }, 1000)
+//   return dtd;
+// }
 
-$("#aaron2").click(function() {
-  $.when(task3('task1'), task4('task2')).done(function() {
-    show('when处理成功', $("#aaron2"))
-  })
-})
+// $("#aaron2").click(function() {
+//   $.when(task3('task1'), task4('task2')).done(function() {
+//     show('when处理成功', $("#aaron2"))
+//   })
+// })
 
 
 function show(data, ele) {

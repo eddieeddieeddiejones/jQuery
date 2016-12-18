@@ -36,10 +36,11 @@ function Callbacks(options) {
       // console.log(start)//0 1 2
       list.push(fn)
       // console.log(memory)//undefined foo bar
+      // 传上一次fire的形参，执行一次新添加的fn
       if (memory) {
         firingStart = start; //获取最后一值
         // console.log(firingStart)//1 2 
-        console.log(memory)//foo bar
+        // console.log(memory)//foo bar
         _fire(memory);
       }
     },

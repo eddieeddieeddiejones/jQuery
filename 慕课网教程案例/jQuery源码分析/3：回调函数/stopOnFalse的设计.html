@@ -66,10 +66,10 @@ function fn2( value ){
  
 var callbacks = Callbacks("stopOnFalse");
 callbacks.add(fn1);
-callbacks.fire("foo");
+callbacks.fire("foo");//foo
 
 callbacks.add(fn2);
-
+callbacks.fire("foo");//foo
 
 
 

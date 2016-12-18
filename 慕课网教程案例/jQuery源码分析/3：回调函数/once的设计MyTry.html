@@ -24,6 +24,7 @@
                 if (option === "once") {
                     this.list = []
                 }
+                // console.log(list)
             }
         }
         return fun
@@ -46,10 +47,12 @@
         }
     }
     // console.log(typeof({}))//object
-    console.log(typeof [])//object
+    // console.log(typeof [])//object
     var cbs = Callbacks('once');
     cbs.add(fn1);
+
     cbs.fire('foo'); //fn1 says:foo
+    cbs.add(fn1);
     cbs.fire('foo');
     </script>
 </body>

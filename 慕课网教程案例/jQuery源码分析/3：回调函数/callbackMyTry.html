@@ -21,7 +21,7 @@
 
 var callbacks = Callbacks("stopOnFalse");
 callbacks.add(fn1);
-callbacks.fire("foo");
+callbacks.fire("foo");//foo
 
 callbacks.add(fn2);
 callbacks.fire("bar");
@@ -68,7 +68,6 @@ function Callbacks(options){
         if(-1 === list.indexOf(fn)){
           list.push(fn)
         }
-      //这不是相当于没有判断？？？？？？？？？？？？？？？？？？？？？？？？？
       }else{
         list.push(fn)
       }

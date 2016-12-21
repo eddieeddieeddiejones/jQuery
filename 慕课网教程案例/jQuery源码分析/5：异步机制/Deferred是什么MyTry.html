@@ -18,39 +18,37 @@
 //在实际开发中，我们可能要发送多个异步的请求操作，我们需要等所有的异步都处理完毕后，才能继续下一个动作
 
 //案例一
-// function task1(name ,fn){
+// function task1(name,fn){
+//   //这么写会立即执行
+//   // setTimeout(fn(name),500)
 //   setTimeout(function(){
 //     fn(name)
 //   },500)
 // }
-
-// function task2(name ,fn){
+// function task2(name,fn){
 //   setTimeout(function(){
 //     fn(name)
 //   },1000)
 // }
-
 // var taskNums = function(){
 //   var num = 2
 //   return function(){
-//     show(num,$("#aaron1"))
+//     show(num)
 //     if(num === 1){
-//       show("任务完成了",$("#aaron1"))
+//       show("任务完成了")
 //     }
-//     num --
+//     num--
 //   }
 // }()
-// console.log(taskNums)// return  的函数
 
 // $("#aaron1").click(function(){
-//   //常规处理
-//   task1('task1',function(name){
-//     show(name,$("#aaron1"))//task1
-//     taskNums()//空
+//   task1("task1",function(name){
+//     show(name)
+//     taskNums()
 //   })
-//   task2('task2',function(name){
-//     show(name,$("#aaron1"))//task2
-//     taskNums()//任务完成了
+//   task2("task2",function(name){
+//     show(name)
+//     taskNums()
 //   })
 // })
 //结果
@@ -67,37 +65,38 @@
 // task3执行完毕
 // task4执行完毕
 // when处理成功
-
 //案例二
 // 通过Deferred改进
-function task3(name) {
-  var dtd = $.Deferred();
-  setTimeout(function() {
-    show('task3执行完毕',$("#aaron2"))
+function task3(name){
+  var dtd = $.Deferred()
+  setTimeout(function(){
+    show("task3执行成功",$("#aaron2"))
     dtd.resolve(name)
-  }, 500)
-  return dtd;
+  },500)
+  return dtd
 }
 
-function task4(name) {
-  var dtd = $.Deferred();
-  setTimeout(function() {
-    show('task4执行完毕',$("#aaron2"))
+function task4(name){
+  var dtd = $.Deferred()
+  setTimeout(function(){
+    show("task4执行成功",$("#aaron2"))
     dtd.resolve(name)
-  }, 1000)
-  return dtd;
+  },1000)
+  return dtd
 }
 
-$("#aaron2").click(function() {
-  $.when(task3('task1'), task4('task2')).done(function() {
-    show('when处理成功', $("#aaron2"))
+//为什么要这么写？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+$("#aaron2").click(function(event) {
+  $.when(task3("task3"),task4("task4")).done(function(){
+    show("when处理成功",$("#aaron2"))
   })
 })
 
 
-function show(data, ele) {
-  (ele || $("body")).append('<li>' + data + '</li>')
+function show(message,ele){
+  (ele || $("body")).append("<li>"+ message+ "</li>")
 }
+
 
 
 

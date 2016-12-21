@@ -26,7 +26,7 @@ var Deferred = function(func) {
     ["reject", "fail", jQuery.Callbacks("once memory"), "rejected"],
     ["notify", "progress", jQuery.Callbacks("memory")]
   ],
-  state = "pending",
+  state = "pending",//pend 表示悬而未决
   //扩展的primise对象
   promise = {
     state: function() {},
@@ -40,6 +40,7 @@ var Deferred = function(func) {
   //逐个添加所有的接口到deferred对象上
   jQuery.each(tuples, function(i, tuple) {
     deferred[tuple[0]] = function() {
+      // console.log(this)
       deferred[tuple[0] + "With"](this === deferred ? promise : this, arguments);
       return this;
     };

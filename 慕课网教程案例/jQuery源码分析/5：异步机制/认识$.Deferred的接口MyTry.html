@@ -12,57 +12,47 @@
 <script type="text/javascript">
 
 //例子一：基本用法
-$("#aaron1").click(function(event) {
-  var dtd = $.Deferred();//大写
-  dtd.done(function(){
-    show('成功')  
-  })
-  setTimeout(function(){
-    dtd.resolve()
-  },2000)
-})
+// $("#aaron1").click(function(){
+//   var dtd = $.Deferred()
+//   dtd.done(function(){
+//     show("成功")
+//   })
+//   setTimeout(function(){
+//     dtd.resolve()
+//   },2000)
+// })
 
 
 //例二：过滤器
-var filterResolve = function(){
-  var defer = $.Deferred()
-  var filtered = defer.then(function(value){
-    return value*2
-  })
-  defer.resolve(5)
-  filtered.done(function(value){
-    show("2*5= " + value)
-  })
-}
+// var filterResolve = function(){
+// 	var defer = $.Deferred()
+// 	var filter = defer.then(function(value){
+// 		return value*2
+// 	})
+// 	defer.resolve(5)
+// 	filter.done(function(value){
+// 		show("2*5 = "+ value)
+// 	})
+// }
+// $("#aaron2").click(filterResolve);
 
 
 //例三：实现promise方法
-$("#aaron3").click(function(){
-  var obj = {
-    hello: function(name){
-      show('你好 ' + name)
-    }
-  }
-  var defer = $.Deferred()
-  defer.promise(obj)
-  defer.resolve('慕课网')
-  console.log(defer) 
-  obj
-    .done(function(name){
-      obj.hello(name)
-      // 为什么无效？？？？？？？？？？？？？？？？？？？？？？？？？？？
-      // setTimeout(show('停顿2s'),2000)
-    })
-    .hello('aaron')
-
-  // defer = $.Deferred();
-  // // 设置一个promise
-  // defer.promise(obj);
-  // //解决一个deferred
-  // defer.resolve("慕课网");
-  // obj.done(function(name) {
-  //   obj.hello(name);
-  // }).hello("Aaron");
+$("#aaron3").click(function(event) {
+	var obj = {
+		hello: function(name){
+			show("hello "+ name)
+		}
+	}
+	var defer = $.Deferred()
+	defer.promise(obj)
+	defer.resolve("慕课网")
+	obj.done(function(name){
+		obj.hello(name)
+	}).hello("aAron")
+	// obj.done(function(name){
+	// 	obj.hello(name)
+	// }).hello("aAron")
 })
 
 function show(data) {

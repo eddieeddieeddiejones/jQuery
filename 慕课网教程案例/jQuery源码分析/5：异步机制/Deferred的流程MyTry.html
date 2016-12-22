@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<!-- <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
+<title></title>
+</head>
+<body>
+
+
+<button>模拟的代码测试</button>
+
+<script type="text/javascript">
+
+
+var filterResolve = function(){
+  var defer= $.Deferred()
+  defer.resolve(5)
+  defer.done(function(value){
+    show($("body"),value)
+  })
+  var filter = defer.then(function(value){
+    return value*2
+  })
+  filter.done(function(value){
+    show($("body"),value)
+  })
+}
+function show(ele,value){
+  ele.append("<li>值是 " + value + "</li>")
+}
+
+$("button").on("click", filterResolve);
+  
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

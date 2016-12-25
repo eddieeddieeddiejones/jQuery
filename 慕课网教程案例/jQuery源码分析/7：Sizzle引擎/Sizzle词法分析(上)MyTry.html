@@ -37,7 +37,7 @@
 
   //最简单的选择器
   // var selector = 'div.aaron input[name=ttt],div p';
-  console.log($('div.aaron,div > p'))
+  // console.log($('div.aaron,div > p'))
 
   //最简单的选择器
   var selector = 'div,input';
@@ -48,7 +48,6 @@
     alert(soFar[0])
     alert(soFar[1])
   })
-
 
   //sizzle的分组方式
   $("#test2").click(function() {
@@ -63,13 +62,14 @@
       var matched;
       var tokens;
       var groups = [];
-
+      // console.log(rcomma.exec(soFar))//null
       while (soFar) {
 
         //第一大块，分组关系
         //查找最左边的选择是不是逗号开头
         //matched用于处理第一进入
         //因为div input,div p 开始分解，第一个不是特殊符号
+        
         if (!matched || (match = rcomma.exec(soFar))) {
           if (match) {
             // Don't consume trailing commas as valid

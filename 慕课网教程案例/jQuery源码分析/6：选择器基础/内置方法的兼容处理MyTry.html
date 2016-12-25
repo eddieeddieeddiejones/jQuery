@@ -2,122 +2,126 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
-<script src="http://img.mukewang.com/down/541f6ff70001a0a500000000.js" type="text/javascript"></script>
-<!-- <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
+<!-- <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<script src="http://img.mukewang.com/down/541f6ff70001a0a500000000.js" type="text/javascript"></script> -->
+
 <title></title>
 </head>
 <body>
 
-<button id="test1">attributes获取class</button>
+<button class="qiao" id="test1">attributes获取class</button>
 <button id="test2">attributes检测className</button>
 <button id="test3">getElementById检测</button>
 <button id="test4">getElementsByTagName检测</button>
 <button id="test5">getElementsByClassName检测</button>
 
+<script type="text/javascript" src="../jquery-1.11.2.js"></script>
+<!-- <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
 <script type="text/javascript">
 
-    function assert(fn) {
-      var div = document.createElement("div");
-      try {
-        return !!fn(div);
-      } catch (e) {
-        return false;
-      } finally {
-        // Remove from its parent by default
-        if (div.parentNode) {
-          div.parentNode.removeChild(div);
-        }
-        // release memory in IE
-        div = null;
+  function assert(fn){
+    var div = document.createElement("div")
+    try{
+      return !!fn(div)
+    }catch(e){
+      console.log("出错了")
+      return false
+    }finally{
+      if(div.parentNode){
+        div.parentNode.removeChild(div)
+      }else{
+        div = null
       }
     }
+  }
 
-  $('#test1').click(function(){
-    //function后的是形参
-      assert(function(div) {
-        div.className = "i";
-        alert(div.getAttribute("class"))//i
-      });
+  $("#test1").click(function(){
+    assert(function(div){
+      div.className="i"
+      // alert(div.getAttrbute("class"))
+      // 元素有class属性，但是class是关键字所以平常写className
+      alert(div.getAttribute("class"))//i
+    })
   })
 
-
-  $('#test2').click(function(){
-      assert(function(div) {
-        div.className = "i";
-        alert(div.getAttribute("className"))//null
-      });
+  $("#test2").click(function(){
+    assert(function(div){
+      div.className="i"
+      alert(div.getAttribute("className"))//null
+    })
   })
 
-  //？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
-  $('#test3').click(function(){
-      //getElementById
-      assert(function(div) {
-        console.log(document.body.appendChild(div))//<div id="Aaron"></div>
-        document.body.appendChild(div).id = 'Aaron';
-        alert(!document.getElementsByName('Aaron').length) //IE6 false
-        alert(document.getElementById('Aaron')) //IE6 false
-      });
+  $("#test3").click(function(){
+    assert(function(div){
+      div.id="Aaron"
+      document.body.appendChild(div)
+      console.log(document.getElementById("Aaron"))
+    })
   })
 
-  $('#test4').click(function(){
-      //getElementsByTagName
-      assert(function(div) {
-        // console.log(document.createComment);//fun
-        div.appendChild(document.createComment(""));
-        alert(div.getElementsByTagName("*").length) //ie
-      }) 
+  $("#test4").click(function(){
+    assert(function(div){
+      //chrome 不支持createComment
+      // div.appendChild(document.createComment("a"))
+      div.appendChild(document.createElement("div"))
+      console.log(div.getElementsByTagName("*"))//[]
+    })
   })
-
 
   $('#test5').click(function() {
     assert(function(div) {
       div.innerHTML = "<div class='a'></div><div class='a i'></div>";
+      // console.log(div)
       div.firstChild.className = "i";
-      alert(div.getElementsByClassName("i").length === 2)
+      console.log(div.getElementsByClassName("i").length === 2)//true
     });
   })
-  
 
-  //tag为*的情况，我们需要做一个兼容的处理
-  function byTagName(tag, context) {
-    var elem,
-      tmp = [],
-      i = 0,
-      results = context.getElementsByTagName(tag);
-    if (tag === "*") {
-      while ((elem = results[i++])) {
-        if (elem.nodeType === 1) {
-          tmp.push(elem);
+  //getElementsByTagName("*")  IE6+
+  function getElesByTagName(context,tag){
+    var eles=[],
+      ele,
+      i = 0
+    var results = context.getElementsByTagName(tag)
+    if(tag === "*"){
+      while(ele = results[i++]){
+        if(ele.nodeType === 1){
+          eles.push(ele)
         }
       }
-      return tmp;
+      return eles
     }
-    return results;
-  };
+    return results
+  }
+  // console.log(getElesByTagName(document.body,"button"))
 
-
-  //getElementsByClassName
-  function getClassNames(tagName, classStr) {
-    var nodes = document.getElementsByTagName(tagName),
-      ret = [];
-    for (i = 0; i < nodes.length; i++) {
-      if (hasClass(nodes[i], classStr)) {
-        ret.push(nodes[i])
-      }
-    }
-    return ret;
+  // getElementsByClassName IE9+
+  // function getElesByClassName(className,context){
+  function getElesByClassName(name,context){
+    var eles =[]
+    // if(document.getElementsByClassName){
+    //   eles = context.getElementsByClassName(name)
+    // } else{
+      var temps = context.getElementsByTagName("*")
+      for (var i = 0; i < temps.length; i++) {
+        if(hasClassName(temps[i],name)){
+          eles.push(temps[i])
+        }
+      };
+    // }
+    return eles
   }
 
-  function hasClass(tagStr, classStr) {
-    var arr = tagStr.className.split(/\s+/); //这个正则表达式是因为class可以有多个,判断是否包含  
-    for (var i = 0; i < arr.length; i++) {
-      if (arr[i] == classStr) {
-        return true;
+  function hasClassName(ele,name){
+    var classArr = ele.className.split(/\s+/)
+    for (var j = 0; j < classArr.length; j++) {
+      if(classArr[j] === name){
+        return true
       }
     }
-    return false;
+    return false
   }
+  console.log(getElesByClassName("qiao",document.body))
 
 
 

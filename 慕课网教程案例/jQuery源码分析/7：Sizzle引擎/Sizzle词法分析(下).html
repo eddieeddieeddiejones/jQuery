@@ -84,14 +84,20 @@
     $('button').click(function(){
 
       var results = [];
-      var i = match.length
-
+      var i = match.length//5
+      // console.log(type)//type是全局变量
       while (i--) {
+        //取得没一项
         token = match[i];
         if (Expr.relative[(type = token.type)]) {
           break;
         }
+        // console.log(type)// ATTR TAG
+        // console.log(find)
+        // console.log(seed)//global variables
         if ((find = Expr.find[type])) {
+          // console.log(find)//function
+          console.log(find(token.matches[0]))
           if ((seed = find(token.matches[0]))) {
             match.splice(i, 1);
             selector = seed.length && toSelector(match);
@@ -100,9 +106,9 @@
           }
         }
       }
-
-      alert('选择器 '+selector)
-      alert('seed种子合集 '+results[0])
+      
+      // console.log('选择器 '+selector))
+      // console.log('seed种子合集 '+results[0])
     })
 
 

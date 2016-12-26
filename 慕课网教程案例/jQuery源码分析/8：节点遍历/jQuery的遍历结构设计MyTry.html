@@ -31,44 +31,39 @@
 
 <script type="text/javascript">
 
-    var ajQuery = {};
 
-function dir(elem, dir, until) {
-  var matched = [],
-    truncate = until !== undefined;
-  while ((elem = elem[dir]) && elem.nodeType !== 9) {
-    if (elem.nodeType === 1) {
-      if (truncate) {
-        if (elem.nodeName.toLowerCase() == until || elem.className == until) {
-          break;
+  function dir(elem,filter){
+    var truncation = filter !== undefined
+    var matches =[]
+    while((elem= elem.parentNode) && elem.nodeType !== 9 ){
+      if(truncation){
+        if(elem.nodeName.toLowerCase() === filter){
+          break
         }
       }
-      matched.push(elem);
+      matches.push(elem)
     }
+    return matches
   }
-  return matched;
-}
+  var ajQuery = {}
+  $.each({
+    parent: function (elem){
+              var parent = elem.parentNode
+              return parent && parent.nodeType !== 11 ? parent: null
+            },
+    parents: dir,
+    parentsUntil: dir
 
-  jQuery.each({
-    parent: function(elem) {
-      var parent = elem.parentNode;
-      return parent && parent.nodeType !== 11 ? parent : null;
-    },
-    parents: function(elem) {
-      return dir(elem, "parentNode");
-    },
-    parentsUntil: function(elem, until) {
-      return dir(elem, "parentNode", until);
-    }
-  }, function(name, fn) {
-    ajQuery[name] = function(until, selector) {
-      return  fn(until, selector);
-    };
-  });
+  },function(name,fn){
+    ajQuery[name] = fn
+  })
+
+
+
 
 
   $("#test1").click(function() {
-    var item = $('.item-1');
+    var item = $('.item-1')
     console.log(item.parent()[0])
     console.log(item.parents().length)
     console.log(item.parentsUntil('body').length)
@@ -77,8 +72,8 @@ function dir(elem, dir, until) {
   $("#test2").click(function() {
     var item = document.querySelectorAll('.item-1')[0]
     console.log(ajQuery.parent(item))
-    console.log(ajQuery.parents(item).length)
-    console.log(ajQuery.parentsUntil(item, 'body').length)
+    console.log(ajQuery.parents(item))
+    console.log(ajQuery.parentsUntil(item, 'body'))
   })
 
 

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
+<!-- <script type="text/javascript" src="../jquery-2.1.1.js"></script> -->
+<title></title>
+</head>
+<body>
+
+<button id="test1">jQuery遍历同胞</button>
+<button id="test2">模拟遍历同胞</button>
+
+<ul class="level-1">
+  <li class="item-h">I</li>
+  <li class="first">I</li>
+  <li class="item-i">I</li>
+  <li class="item-ii">II
+    <ul class="level-2">
+      <li class="item-a">A</li>
+      <li class="item-b">B
+        <ul class="level-3">
+          <li class="item-1">1</li>
+          <li class="item-2">2</li>
+          <li class="item-3">3</li>
+        </ul>
+      </li>
+      <li class="item-c">C</li>
+    </ul>
+  </li>
+  <li class="item-iii">III</li>
+  <li class="end">III</li>
+  <li class="item-iiii">III</li>
+</ul>
+
+
+
+<script type="text/javascript">
+
+// console.log("A" =="a")//false
+
+function dir(elem, dir, until) {
+  var matched = [],
+  //只要传了第3个参数，truncate就为true
+    truncate = until !== undefined;
+    // Node.DOCUMENT_NODE 值为9
+  while ((elem = elem[dir]) && elem.nodeType !== 9) {
+    if (elem.nodeType === 1) {
+      if (truncate) {
+        if (elem.nodeName.toLowerCase() == until || elem.className == until) {
+          break;
+        }
+      }
+      matched.push(elem);
+    }
+  }
+  return matched;
+}
+
+
+function nextAll(elem) {
+  return dir(elem, "nextSibling");
+}
+
+function prevAll(elem) {
+  return dir(elem, "previousSibling");
+}
+
+function nextUntil(elem, until) {
+  return dir(elem, "nextSibling", until);
+}
+
+function prevUntil(elem, until) {
+  return dir(elem, "previousSibling", until);
+}
+
+
+$("#test1").click(function(){
+  var item = $('li.item-ii');
+  console.log(item.nextAll()[0].className)
+  console.log(item.prevAll()[0].className)
+  console.log(item.nextUntil('.end')[0].className)
+  console.log(item.prevUntil('.first')[0].className)
+})
+
+$("#test2").click(function(){
+  var item = document.querySelectorAll('li.item-ii')[0]
+  // console.log(nextAll(item)[0].className)
+  // console.log(prevAll(item)[0].className)
+  console.log(nextUntil(item, 'end')[0].className)//item-iii
+  console.log(prevUntil(item, 'first')[0].className)//item-i
+})
+
+</script> 
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

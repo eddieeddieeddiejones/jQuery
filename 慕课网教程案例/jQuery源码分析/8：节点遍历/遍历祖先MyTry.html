@@ -33,46 +33,35 @@
 <script type="text/javascript">
 
 
-function parent(elem) {
-  var parent = elem.parentNode;
-  return parent && parent.nodeType !== 11 ? parent : null;
+function parent(elem){
+  var parent = elem.parentNode
+  // document就没有parent,如果是父元素是DocumentFragment，就返回null
+  return parent && parent.nodeType !== 11 ? parent: null
 }
-
 
 function parents(elem){
-  var matched = [];
-  while ( (elem = elem[ 'parentNode' ]) && elem.nodeType !== 9 ) {
-    if ( elem.nodeType === 1 ) {
-      matched.push( elem );
-    }
+  var matches =[]
+  while((elem= elem.parentNode) && elem.nodeType !== 9 ){
+    // 跟原版不一样
+    matches.push(elem)
   }
-  return matched;
+  return matches
 }
 
-function parentsUntil(elem, filter) {
-  var matched = [],
-    until,
-    truncate = filter !== undefined;
-  while ((elem = elem['parentNode']) && elem.nodeType !== 9) {
-    if (elem.nodeType === 1) {
-      if (truncate) {
-        if(elem.nodeName.toLowerCase() ==filter){
-          break;
-        }
+function parentsUntil(elem,filter){
+  // 判断是否传了第二个参数
+  var truncation = filter !== undefined
+  var matches =[]
+  while((elem= elem.parentNode) && elem.nodeType !== 9 ){
+    if(truncation){
+      if(elem.nodeName.toLowerCase() === filter){
+        break
       }
-      matched.push(elem);
     }
+    matches.push(elem)
   }
-  return matched;
+  return matches
 }
-
-
-$("#test1").click(function(){
-  var item = $('.item-1');
-  console.log(item.parent()[0])
-  console.log( item.parents().length)
-  console.log( item.parentsUntil('body').length)
-})
 
 $("#test2").click(function(){
   var item = document.querySelectorAll('.item-1')[0]

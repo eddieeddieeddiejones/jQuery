@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<!--  <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script> -->
+	<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+	<title>domManip</title>
+</head>
+<body>
+
+
+<button id="Button1" type="button" value="button" onclick = "slowAdd()"/>普通方式创建</button>
+<button id="Button2" type="button" value="button"  onclick = "fastAdd()"/>文档碎片创建</button>
+<div id="test"></div>
+
+
+<script type="text/javascript">
+
+
+function slowAdd(){
+    var date1 = +new Date()
+    for (var i = 0; i < 5000; i++) {
+        var span = document.createElement("span")
+        var text = document.createTextNode(i)
+        span.appendChild(text)
+        document.body.appendChild(span)
+    };
+    var date2 = +new Date()
+    var time = date2 - date1
+    document.getElementById("test").innerHTML = "普通方式创建耗时"+time+"秒"
+}
+
+
+// 呵呵，3次测试，有2次 document.createDocumentFragment() 反而更慢
+function fastAdd(){
+    var date1 = +new Date()
+    var vessel = document.createDocumentFragment()
+    for(var i = 0; i < 5000; i++){
+        var span = document.createElement("span")
+        var text = document.createTextNode(i)
+        span.appendChild(text)
+        vessel.appendChild(span)
+    }
+    document.body.appendChild(vessel)
+    var date2 = + new Date()
+    var time = date2 - date1
+    document.getElementById("test").innerHTML = "快速方式创建耗时"+ time+ "秒"
+}
+
+
+</script>
+</body>
+</html>

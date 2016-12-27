@@ -25,6 +25,7 @@ $('#test1').click(function() {
 		var elem = inner[i]
 		var div = document.createElement('div')
 		div.innerHTML = 'aaaa'
+		// console.log(elem.nextSibling)//一开始是文本节点，然后是新插入的aaa
 		elem.parentNode.insertBefore(div, elem.nextSibling)
 	}
 })

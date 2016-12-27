@@ -29,6 +29,7 @@
     	document.getElementById('test').innerHTML = '<br><div>普通方式创建耗时'+ ( +new Date() - time1);
     }
 
+    // 呵呵，3次测试，有2次 document.createDocumentFragment() 反而更慢
     function fastAdd() {
     	var oFragmeng = document.createDocumentFragment(); //创建文档碎片
     	var time2 =( +new Date());

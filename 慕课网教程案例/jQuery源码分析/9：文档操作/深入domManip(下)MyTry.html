@@ -16,111 +16,69 @@
 
 <script type="text/javascript">
 
-// nodeType的值为11
+$("#test3").click(function(){
+	append(document.querySelectorAll("div")[0],"<script>alert("慕课网")")
+})
 
-// nodeName的值为“#document-fragment”
+//还原脚本
+// elem = script元素
+function restoreScript(elem){
+	elem.removeAttribute("type")
+	return elem
+}
 
-// nodeValue的值为null
+// 关闭脚本执行
+// elem = script元素
+function disableScript(elem){
+	elem.type = (elem.getAttribute("type")!==null)+"/" + elem.type
+	return elem
+}
 
-// parentNode的值为null
+// elems = ["<script>alert('慕课网')"], context = document
+function buildFragment(eles,context){
+	var fragment = context.createDocumentFragment(),
+	i=0,
+	len = eles.length,
+	ele
+	for(;i<l;i++){
+		ele = eles[i]
+		fragment.appendChild(context.createElement("div"))
+		div.innerHTML = ele
+	}
+	return fragment
+}
 
-// 子节点可以是Element、ProcessingInstruction、Comment、Text、CDATASection或EntityReference
-	//代码不执行
-	$("#test1").click(function() {
-		var div = document.querySelectorAll('div')[0];
-		div.innerHTML = "<script>alert('慕课网')";
-		div.innerHTML = '代码不执行'
-	})
-
-	//代码执行
-	$("#test2").click(function() {
-		var div = $('div')
-		// div.append("<script>alert('慕课网')").append('代码执行了')
-		//为什么不写\会报错？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
-		div.append("<script>alert('慕课网')<\/script>").append('代码执行了')
-	})
-
-
-	$("#test3").click(function() {
-		append(document.querySelectorAll('div')[0],"<script>alert('慕课网')" )
-	})
-
-
-
-	//==========模拟实现script加载================
-
-	function buildFragment(elems, context) {
-		var fragment = context.createDocumentFragment(),
-			nodes = [],
-			i = 0,
-			elem,
-			l = elems.length;
-
-		for (; i < l; i++) {
-			elem = elems[i];
-			//创一个元素div做为容器
-			tmp = fragment.appendChild(context.createElement("div"));
-			//console.log(tmp)//<div></div>
-			//放到文档碎片中
-			tmp.innerHTML = elem;	
+// parentEles = [div#test], target = "<script>alert('慕课网')", callback = (elem)
+function domManip(parentEles,target,callback){
+	var l = parentEles.length
+	var iNoClone = l-1
+	var scripts
+	var hasScripts
+	if(l){
+		var fragment = buildFragment([target],parentEles[0].ownerDocument)
+		var first = fragment.firstChild.firstChild
+		if(first){
+			scripts = disableScript(first)
+			hasCripts = true
+			callback.call(parentEles,scripts)
 		}
-		return fragment;
-	}
-
-	//关闭脚本执行
-	function disableScript(elem) {
-		// console.log(elem.getAttribute("type") !== null)//false
-		elem.type = (elem.getAttribute("type") !== null) + "/" + elem.type;
-		return elem;
-	}
-
-	//还原脚本
-	function restoreScript(elem) {
-		elem.removeAttribute("type");
-		return elem;
-	}
-
-	function domManip(parentEles, target, callback) {
-		var l = parentEles.length;
-		var iNoClone = l - 1;
-		var scripts;
-		var hasScripts;
-		if (l) {
-			var fragment = buildFragment([target], parentEles[0].ownerDocument);
-			var first = fragment.firstChild.firstChild
-			if (first) {
-				//"<script type="false/">alert('慕课网')
-				//增加false标记
-				scripts = disableScript(first);
-				hasScripts = true
-				callback.call(parentEles, scripts);
-			}
-
-			//执行脚本加载
-			if(hasScripts){
-				//去掉type锁定
-				restoreScript(scripts);
-				//开始执行脚本
-				var code = scripts.textContent.replace(/^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g, "");
-				eval(code)
-			}
-
+		//执行脚本
+		if(hasScripts){
+			restoreScript(scripts)
+			var code = scripts.textContent.replace(/^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g,"")
+			eval(code)
 		}
-
 	}
+}
 
-	//parentEles = [div#test], target = "<script>alert('慕课网')"
-	function append(parentEles, target) {
-		return domManip([parentEles], target, function(elem) {
-			parentEles.appendChild(elem)
-		});
-	}
-
-
-	
-	
+//parentEles = [div#test], target = "<script>alert('慕课网')"
+function append(parentEles,target){
+	return domManip([parentEles],target,function(elem){
+		parentEles.appendChild(elem)
+	})
+}
 
 
 </script>
 </body>
-</html>
+</html

@@ -30,6 +30,7 @@
 
 var cssExpand = ["Top", "Right", "Bottom", "Left"];
 
+//elem = div#aaron, name = "width", extra = "padding", isBorderBox = true, styles = CSSStyleDeclaration
 function augmentWidthOrHeight(elem, name, extra, isBorderBox, styles) {
 	var i = extra === (isBorderBox ? "border" : "content") ?
 	// If we already have the right measurement, avoid augmentation
@@ -84,6 +85,7 @@ function augmentWidthOrHeight(elem, name, extra, isBorderBox, styles) {
 
 //获取最终属性
 //https://github.com/jquery/jquery/pull/524
+//elem = div#aaron
 var getStyles = function(elem) {
 	return elem.ownerDocument.defaultView.getComputedStyle(elem, null);
 };
@@ -91,14 +93,15 @@ var getStyles = function(elem) {
 var elem = document.getElementById('aaron');
 
 $('#test1').click(function() {
-	alert( elem.offsetWidth)
+	alert( elem.offsetWidth)//3040
 })
 
 $('#test2').click(function() {
-	alert(elem.offsetHeight)
+	alert(elem.offsetHeight)//140
 })
 
 $('#test3').click(function() {
+	debugger
 	var val = elem.offsetWidth;
 	var styles = getStyles(elem)
 	alert(val + augmentWidthOrHeight(elem, 'width', "padding", true, styles))

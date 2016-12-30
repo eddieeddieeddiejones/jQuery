@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+  <style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+      div { padding: 30px;width: 400px;}
+      p { margin:100px;
+      }
+  </style>
+	<script type="text/javascript" src="../../jquery-2.1.1.js"></script>
+	<title>position</title>
+</head>
+<body>
+
+<div style="position:static;left:100px;top:100px;border:40px solid #ccc">
+  <p id="aaron" style="position:static;left:60px;top:220px;border:50px solid red">Hello</p>
+</div>
+<ul>
+</ul>
+
+<script type="text/javascript">
+
+var p = $("#aaron");
+var position = p.position();
+var offset = p.offset();
+
+$('ul').append('<li>p元素position坐标: left:'+ position.left +' top:'+ position.top +';</li>\n<li>p元素offset坐标: left:'+ offset.left +' top:'+ offset.top +';</li>')
+
+</script>
+
+</body>
+</html>
+

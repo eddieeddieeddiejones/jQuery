@@ -19,33 +19,34 @@
 
 <script type="text/javascript">
 
-function empty() {
-	var elem,
-		i = 0;
-	for (;
-		(elem = this[i]) != null; i++) {
-		if (elem.nodeType === 1) {
-			elem.textContent = "";
-		}
-	}
-	return this;
-}
+
 ;(function(){
 	var a = [1,2]
 	console.log(a[2])//undefined
 	console.log(undefined != null)//false
 })()
 
+function empty(){
+	var i = 0
+	var node
+	// for (; i < this.length; i++) {
+	for (; 
+		(node =this[i]) != null; i++) {
+		if(node.nodeType === 1){
+			node.innerHTML = ""
+		}
+	};
+	return this
+}
 
-function remove(selector, keepData /* Internal Use Only */ ) {
-    var elem,i = 0;
-    for (;
-        (elem = this[i]) != null; i++) {
-        if (elem.parentNode) {
-            elem.parentNode.removeChild(elem);
-        }
-    }
-    return this;
+function remove(){
+	var i = 0
+	var node
+	for (; i < this.length; i++) {
+		node = this[i]
+		node.parentNode.removeChild(node)
+	};
+	return this
 }
 
 $('#test1').click(function() {

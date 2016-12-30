@@ -23,9 +23,10 @@
 <script type="text/javascript">
 
 var div = document.querySelectorAll('div')[0]
-
+//因为获取的是行内样式
+console.log(div.style.width)//""	
 $('#test1').click(function(){
-	show('之前'+ $(div).width())	
+	show('之前'+ $(div).width())
 	div.style['width'] = '500px'
 	show('之后'+ div.style['width'])
 })

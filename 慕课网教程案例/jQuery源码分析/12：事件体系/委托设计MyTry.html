@@ -16,11 +16,11 @@
    </div>
 </div>
 
-<ul></ul>
+<ul id = "c"></ul>
 
 <script type="text/javascript">
 
-var ul = $('ul')
+var ul = $('#c')
 function show(data){
   ul.append('<li>'+ data +'</li>')
 }
@@ -29,6 +29,7 @@ var aaron = $("#aaron")
 //同一个元素上绑定不同的事件委托
 aaron.on('mousedown','p',function(e){
 	show('委托到p触发')
+  // 如果阻止冒泡，外层的就不会执行了
   // e.stopPropagation()
 })
 aaron.on('mousedown','ul',function(e){
@@ -40,9 +41,9 @@ aaron.on('mousedown',function(e){
 })
 
 
-// $("#test").on('mousedown',function(){
-//   show('test')
-// })
+$("#test").on('mousedown',function(){
+  show('test')
+})
 
 $("body").on('mousedown',function(){
   show('body')

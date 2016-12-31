@@ -38,23 +38,29 @@
     })
 
 
-    $("#addClassCallback").click(function(){
-         removeClass(p, "blue highlight under")
-    })
 
 
     /////////
     //增加样式 //
     /////////
+    
+    console.log('abc'.match(/a/));//["a", index: 0, input: "abc"]
+
+
+
+    //elem = p.under, value = "blue highlight under"
     function addClass(elem,value) {   
 
         var classes, cur, clazz, j, finalValue
         // 如果参数是多个样式设置"blue highlight under"按照\/S+\g空格分割
-        classes = (value || "").match(/\S+/g) || [];
+        // \S 匹配空白符之外的所有字符
+        classes = (value || "").match(/\S+/g) || [];//classes = ["blue", "highlight", "under"]
+        // console.log((value || "").match(/\S+/) || []);//["blue", index: 0, input: "blue highlight under"]
 
         //如果是元素节点，并且有class属性
         //拼接成 " blue highlight under "形式，加上前后空格
         cur = elem.nodeType === 1 && (elem.className ?
+            // 去掉回车，tab之类的， \r return ,\n linefeed 换行
             (" " + elem.className + " ").replace(/[\t\r\n\f]/g, " ") :
             " "
         );

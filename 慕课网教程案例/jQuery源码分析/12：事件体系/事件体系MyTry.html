@@ -29,9 +29,9 @@
 <script type="text/javascript">
 
 var p = $('<p>新增内容</p>');
-// var add =  p.appendTo('div').addClass('c1');
+p.appendTo('div')
 
-console.log( p.appendTo('div') )
+// console.log( p.appendTo('div') )
 
 // 这个问题问的很好
 
@@ -43,30 +43,25 @@ console.log( p.appendTo('div') )
 // 那么end的本质是调用prevObject的引用，prevObject其实是保存最终引用的$('<p>新增内容</p>')这个产生的p
 // 所以为什么只有一个的原因了
 
-
-
 var p = $("p");	
+$("button").click(function(){
+	p.trigger('muCustomEvent',["John"]);
+})
 
-// p.on('click',function(){
-// 	alert(1)
-// })
-
-
-$( "button" ).click(function () {
-  $( "p" ).trigger( "myCustomEvent", [ "John" ] );
-});
-
-
-p.on("myCustomEvent", function(event, myName) {
-	console.log(event)//j…y.Event {type: "myCustomEvent",...}
-	console.log(myName)//John
-	$(this).text(myName + ", hi there!");
+p.on("muCustomEvent",function(event,myName){
+	console.log(myName)
+	$(this).text("Hi" + myName + "is there")
 	$("span")
+		// 清除动画队列
 		.stop()
+		.stop()
+		// .stop()
+		// 嘿，只执行一次，满足要求
 		.text("myName = " + myName)
-		.fadeIn(30)
-		.fadeOut(1000);
-});
+		.fadeIn(1000)
+		.fadeOut(1000)
+})
+
 </script>
 
 </body>

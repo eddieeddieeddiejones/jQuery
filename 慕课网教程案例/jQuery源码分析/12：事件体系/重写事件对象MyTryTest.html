@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js" type="text/javascript"></script> -->
+<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+<title>重写事件对象</title>
+</head>
+<body>
+
+
+<div id="aaron">
+   <div>
+     <p>点击重写事件对象</p>
+   </div>
+</div>
+<ul></ul>
+
+<script type="text/javascript"> 
+
+
+function returnTrue() {
+    return true;
+}
+
+function returnFalse() {
+    return false;
+}
+
+
+
+        console.log(false || false && false?1:2)//2
+        console.log(false || false && 2)//false
+        console.log(false || false && false)//false
+        //so && 6 ，|| 5 ,? 4数字越大，优先级越高
+        console.log((false || false && false)?1:2)//2
+
+</script>
+
+</body>
+</html>

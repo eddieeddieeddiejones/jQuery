@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js" type="text/javascript"></script> -->
+<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+<title>重写事件对象</title>
+</head>
+<body>
+
+
+<div id="aaron">
+   <div>
+     <p>点击重写事件对象</p>
+   </div>
+</div>
+<ul></ul>
+
+<script type="text/javascript"> 
+// console.log(jQuery.now())
+
+function returnTrue(){
+    return true
+}
+
+function returnFalse(){
+    return false
+}
+
+var Event = function(src,props){
+    if(src && src.type){
+        this.origialEvent = src
+        this.type = src.type
+        // console.log((false || (false && false)) ? 1: 2)//2
+        this.isDefaultPrevented = src.defaultPrevented || 
+            src.defaultPrevented === undefined && 
+            src.returnValue === false ?
+            returnTrue : 
+            returnFalse
+    } else {
+        this.type = src
+    }
+    // console.log(jQuery.now())
+    this.timeStamp = src && src.timeStamp || jQuery.now()
+    this[jQuery.expando] = true
+} 
+
+Event.prototype = {
+     isDefaultPrevented: returnFalse,
+     isPropagationStopped: returnFalse,
+     isImmediatePropagationStopped: returnFalse,
+     preventDefault: function(){
+        var e = this.origialEvent
+        this.isDefaultPrevented = returnTrue
+        if(e && e.preventDefault){
+            e.preventDefault()
+        }
+     },
+     stopPropagation: function(){
+        var e = this.origialEvent
+        this.isPropagationStopped = returnTrue
+        if(e && e.stopPropagation){
+            e.stopPropagation()
+        }
+     },
+     stopImmediatePropagation: function(){
+        var e = this.origialEvent
+        this.isImmediatePropagationStopped = returnTrue
+        if(e && e.stopImmediatePropagation){
+            e.stopImmediatePropagation()
+        }
+     }
+}
+
+function fix(event){
+    var origialEvent = event
+    var props = "altKey bubbles cancelable ctrlKey currentTarget eventPhase metaKey relatedTarget shiftKey target timeStamp view which button buttons clientX clientY offsetX offsetY pageX pageY screenX screenY toElement".split(" ")
+    var event = new Event(origialEvent)
+    var i = props.length
+    var prop
+    // console.log(!!0)//false
+    while(i--){
+        console.log(i)
+        prop = props[i]
+        event[prop] = origialEvent[prop]
+    }
+
+    return event
+}
+
+document.getElementById('aaron').addEventListener('click',function(e){
+    e = fix(e)
+    for(var i in e){
+        show('属性' + i + '值' + e[i])
+    }
+},false)
+
+function show(data){
+    $(`'ul').append('<li>'+ data+'</li>')
+}
+
+</script>
+
+</body>
+</html>
